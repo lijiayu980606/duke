@@ -1,7 +1,7 @@
-package seedu.duke;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 
 public class Duke {
     //level 1
@@ -32,6 +32,7 @@ public class Duke {
         }
     }*/
     //level 2
+    /*
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -67,4 +68,50 @@ public class Duke {
             }
         }
     }
+    */
+    //Level 3
+    public static void main(String[] args) {
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println("Hello from\n" + logo);
+        System.out.println("    --------------------------------------------------------");
+        System.out.println("    Hello! I'm Duke\n" + "    What can I do for you?");
+        System.out.println("    --------------------------------------------------------");
+        List<Task> listCmd = new ArrayList<Task>();
+        while(true){
+            Scanner myObj = new Scanner(System.in);
+            String command = myObj.nextLine();
+            Scanner scCmd = new Scanner(command);
+            if(command.equals("bye")){
+                System.out.println("    --------------------------------------------------------");
+                System.out.println("    Bye. Hope to see you again soon!");
+                System.out.println("    --------------------------------------------------------");
+                break;
+            }else if(command.equals("list")){
+                System.out.println("    --------------------------------------------------------");
+                int sizeCommand = listCmd.size();
+                for(int i = 0; i < sizeCommand; i++){
+                    int num=i+1;
+                    System.out.println("    "+ num + ".[" + listCmd.get(i).getStatusIcon()+"] "+listCmd.get(i).description);
+                }
+                System.out.println("    --------------------------------------------------------");
+            }else if (scCmd.next().equals("done")) {
+                System.out.println("    --------------------------------------------------------");
+                //System.out.println(scCmd.next());
+                int i =Integer.parseInt(scCmd.next())-1;
+                listCmd.get(i).markAsDone();
+                System.out.println("    Nice! I've marked this task as done:\n"+"    [" + listCmd.get(i).getStatusIcon()+"] "+listCmd.get(i).description);
+                System.out.println("    --------------------------------------------------------");
+            }else{
+                System.out.println("    --------------------------------------------------------");
+                listCmd.add(new Task(command));
+                System.out.println("    added: "+ command);
+                System.out.println("    --------------------------------------------------------");
+            }
+        }
+    }
 }
+
