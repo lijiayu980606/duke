@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 
 public class Duke {
-    //level 4
+    //level 5
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -49,11 +49,19 @@ public class Duke {
                 System.out.println("    --------------------------------------------------------");
             }else if(type.equals("todo")) {
                 System.out.println("    --------------------------------------------------------");
-                Task todo = new Task(scCmd.nextLine());
-                listCmd.add(todo);
-                System.out.println("    Got it. I've added this task: ");
-                System.out.println("    [T][\u2718]"+ todo.description);
-                System.out.println("    Now you have "+ listCmd.size()+" tasks in the list.");
+                try{
+                    if(scCmd.hasNext()){
+                        Task todo = new Task(scCmd.nextLine());
+                        listCmd.add(todo);
+                        System.out.println("    Got it. I've added this task: ");
+                        System.out.println("    [T][\u2718]"+ todo.description);
+                        System.out.println("    Now you have "+ listCmd.size()+" tasks in the list.");
+                    }else{
+                        throw new DukeException("The description of a todo cannot be empty.");
+                    }
+                }catch (DukeException exception){
+                    System.out.println("    \u2639 OOPS!!! " + exception.getMessage());
+                }
                 System.out.println("    --------------------------------------------------------");
             }else if(type.equals("deadline")) {
                 System.out.println("    --------------------------------------------------------");
@@ -78,6 +86,10 @@ public class Duke {
                 System.out.println("    Got it. I've added this task: ");
                 System.out.println("    [E][\u2718]"+ event.description +" (at: "+event.period+")");
                 System.out.println("    Now you have "+ listCmd.size()+" tasks in the list.");
+                System.out.println("    --------------------------------------------------------");
+            }else{
+                System.out.println("    --------------------------------------------------------");
+                System.out.println("    \u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
                 System.out.println("    --------------------------------------------------------");
             }
         }
