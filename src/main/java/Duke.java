@@ -1,11 +1,14 @@
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 
 public class Duke {
-    //level 5
-    public static void main(String[] args) {
+    //level 6
+    public static void main(String[] args) throws IOException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -16,6 +19,37 @@ public class Duke {
         System.out.println("    Hello! I'm Duke\n" + "    What can I do for you?");
         System.out.println("    --------------------------------------------------------");
         List<Task> listCmd = new ArrayList<Task>();
+
+        Path file = Paths.get("duke.txt");
+        FileWriter out = new FileWriter(String.valueOf(file),true);
+        Scanner sc = new Scanner(file);
+
+        while(sc.hasNext()) {
+            String nextLine = sc.nextLine();
+            String[] lineParts = nextLine.split("\\|");
+            String type = lineParts[0];
+            String done = lineParts[1];
+            String description = lineParts[2];
+            if (type.equals("T")) {
+                Task cmd = new Task(description);
+                cmd.isDone = (done.equals("1")) ? true : false;
+                cmd.type = "T";
+                listCmd.add(cmd);
+            } else if (type.equals("D")) {
+                Task cmd = new Task(description);
+                cmd.isDone = (done.equals("1")) ? true : false;
+                cmd.type = "D";
+                cmd.setPeriod(lineParts[3]);
+                listCmd.add(cmd);
+            } else {
+                Task cmd = new Task(description);
+                cmd.isDone = (done.equals("1")) ? true : false;
+                cmd.type = "E";
+                cmd.setPeriod(lineParts[3]);
+                listCmd.add(cmd);
+            }
+        }
+
         while(true){
             Scanner myObj = new Scanner(System.in);
             String ipt = myObj.nextLine();
@@ -93,6 +127,20 @@ public class Duke {
                 System.out.println("    --------------------------------------------------------");
             }
         }
+        new FileWriter("duke.txt").close();
+        int sizeCommand = listCmd.size();
+        for(int i = 0; i < sizeCommand; i++){
+            String done = listCmd.get(i).isDone?"1":"0";
+            if(listCmd.get(i).type.equals("T")){
+                out.write("T|"+ done +"|"+ listCmd.get(i).description+"\n");
+            }else if(listCmd.get(i).type.equals("D")){
+                out.write("D|"+ done +"|"+ listCmd.get(i).description+ "|"+listCmd.get(i).period+"\n");
+            }else{
+                out.write("E|"+ done +"|"+ listCmd.get(i).description+ "|"+listCmd.get(i).period+"\n");
+            }
+        }
+        out.flush();
+        out.close();
     }
 }
 
