@@ -26,6 +26,7 @@ public class Duke {
         Path file = Paths.get("duke.txt");
         FileWriter out = new FileWriter(String.valueOf(file),true);
         Scanner sc = new Scanner(file);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
 
         while(sc.hasNext()) {
             String nextLine = sc.nextLine();
@@ -43,16 +44,18 @@ public class Duke {
                 cmd.isDone = (done.equals("1")) ? true : false;
                 cmd.type = "D";
                 cmd.setPeriod(lineParts[3]);
+                cmd.setDate(formatter.parse(lineParts[3]));
                 listCmd.add(cmd);
             } else {
                 Task cmd = new Task(description);
                 cmd.isDone = (done.equals("1")) ? true : false;
                 cmd.type = "E";
                 cmd.setPeriod(lineParts[3]);
+                cmd.setDate(formatter.parse(lineParts[3]));
                 listCmd.add(cmd);
             }
         }
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+
         while(true){
             Scanner myObj = new Scanner(System.in);
             String ipt = myObj.nextLine();
