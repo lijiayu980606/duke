@@ -1,14 +1,17 @@
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 
 public class Duke {
     //level 6
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ParseException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -49,7 +52,7 @@ public class Duke {
                 listCmd.add(cmd);
             }
         }
-
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
         while(true){
             Scanner myObj = new Scanner(System.in);
             String ipt = myObj.nextLine();
@@ -102,7 +105,10 @@ public class Duke {
                 String ddlCmd = scCmd.nextLine();
                 Scanner ddlSc = new Scanner(ddlCmd).useDelimiter("\\s*/by\\s*");
                 Task ddl = new Task(ddlSc.next());
-                ddl.setPeriod(ddlSc.next());
+                String period = ddlSc.next();
+                ddl.setPeriod(period);
+                Date dateDdl = formatter.parse(period);
+                ddl.setDate(dateDdl);
                 ddl.taskDeadline();
                 listCmd.add(ddl);
                 System.out.println("    Got it. I've added this task: ");
@@ -114,7 +120,10 @@ public class Duke {
                 String evtCmd = scCmd.nextLine();
                 Scanner evtSc = new Scanner(evtCmd).useDelimiter("\\s*/at\\s*");
                 Task event = new Task(evtSc.next());
-                event.setPeriod(evtSc.next());
+                String period = evtSc.next();
+                event.setPeriod(period);
+                Date dateEvt = formatter.parse(period);
+                event.setDate(dateEvt);
                 event.taskEvent();
                 listCmd.add(event);
                 System.out.println("    Got it. I've added this task: ");

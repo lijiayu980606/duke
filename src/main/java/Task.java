@@ -1,3 +1,5 @@
+import java.util.Date;
+
 //level3
 /*public class Task {
     protected String description;
@@ -22,12 +24,14 @@ public class Task {
     protected boolean isDone;
     protected String type;
     protected String period;
+    protected Date date;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
         this.type = "T";
         this.period=null;
+        this.date=null;
     }
 
     public String getStatusIcon() {
@@ -44,6 +48,9 @@ public class Task {
     }
     public void setPeriod(String timeString){
         this.period=timeString;
+    }
+    public void setDate(Date newdate){
+        this.date = newdate;
     }
 
 }
