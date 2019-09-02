@@ -79,6 +79,15 @@ public class Duke {
                 listCmd.get(i).markAsDone();
                 System.out.println("    Nice! I've marked this task as done:\n"+"    [" + listCmd.get(i).getStatusIcon()+"] "+listCmd.get(i).description);
                 System.out.println("    --------------------------------------------------------");
+            }else if (type.equals("delete")){
+                int i = Integer.parseInt(scCmd.next())-1;
+                Task tsk = listCmd.get(i);
+                listCmd.remove(i);
+                System.out.println("    --------------------------------------------------------");
+                System.out.println("    Noted. I've removed this task:\n"+"    " + tsk);
+                System.out.println("    Now you have "+ listCmd.size()+" tasks in the list.");
+                System.out.println("    --------------------------------------------------------");
+
             }else if(type.equals("todo")) {
                 System.out.println("    --------------------------------------------------------");
                 try{
