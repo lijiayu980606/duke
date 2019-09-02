@@ -34,24 +34,21 @@ public class Duke {
             String type = lineParts[0];
             String done = lineParts[1];
             String description = lineParts[2];
+            String time = lineParts[3];
             if (type.equals("T")) {
-                Task cmd = new Task(description);
+                Todo cmd = new Todo(description);
                 cmd.isDone = (done.equals("1")) ? true : false;
-                cmd.type = "T";
                 listCmd.add(cmd);
             } else if (type.equals("D")) {
-                Task cmd = new Task(description);
+                Deadline cmd = new Deadline(description,time);
                 cmd.isDone = (done.equals("1")) ? true : false;
-                cmd.type = "D";
-                cmd.setPeriod(lineParts[3]);
-                cmd.setDate(formatter.parse(lineParts[3]));
+                //cmd.setPeriod(lineParts[3]);cmdl.setDate(formatter.parse(lineParts[3]));
+
                 listCmd.add(cmd);
             } else {
-                Task cmd = new Task(description);
+                Event cmd = new Event(description,time);
                 cmd.isDone = (done.equals("1")) ? true : false;
-                cmd.type = "E";
-                cmd.setPeriod(lineParts[3]);
-                cmd.setDate(formatter.parse(lineParts[3]));
+//                cmd.setDate(formatter.parse(lineParts[3]));
                 listCmd.add(cmd);
             }
         }
@@ -71,13 +68,8 @@ public class Duke {
                 int sizeCommand = listCmd.size();
                 for(int i = 0; i < sizeCommand; i++){
                     int num=i+1;
-                    if(listCmd.get(i).type.equals("T")){
-                        System.out.println("    "+ num + ".[" +listCmd.get(i).type+"]"+" ["+ listCmd.get(i).getStatusIcon()+"] "+listCmd.get(i).description);
-                    }else if(listCmd.get(i).type.equals("D")){
-                        System.out.println("    "+ num + ".[" +listCmd.get(i).type+"]"+" ["+ listCmd.get(i).getStatusIcon()+"] "+listCmd.get(i).description+" (by: "+listCmd.get(i).period+")");
-                    }else{
-                        System.out.println("    "+ num + ".[" +listCmd.get(i).type+"]"+" ["+ listCmd.get(i).getStatusIcon()+"] "+listCmd.get(i).description+" (at: "+listCmd.get(i).period+")");
-                    }
+                    Task cmd = listCmd.get(i);
+                    System.out.println(num+". "+ cmd);
                 }
                 System.out.println("    --------------------------------------------------------");
             }else if (type.equals("done")) {
@@ -91,10 +83,10 @@ public class Duke {
                 System.out.println("    --------------------------------------------------------");
                 try{
                     if(scCmd.hasNext()){
-                        Task todo = new Task(scCmd.nextLine());
-                        listCmd.add(todo);
+                        Todo td = new Todo(scCmd.nextLine());
+                        listCmd.add(td);
                         System.out.println("    Got it. I've added this task: ");
-                        System.out.println("    [T][\u2718]"+ todo.description);
+                        System.out.println("    [T][\u2718]"+ td.description);
                         System.out.println("    Now you have "+ listCmd.size()+" tasks in the list.");
                     }else{
                         throw new DukeException("The description of a todo cannot be empty.");
@@ -107,28 +99,34 @@ public class Duke {
                 System.out.println("    --------------------------------------------------------");
                 String ddlCmd = scCmd.nextLine();
                 Scanner ddlSc = new Scanner(ddlCmd).useDelimiter("\\s*/by\\s*");
-                Task ddl = new Task(ddlSc.next());
+                String description = ddlSc.next();
                 String period = ddlSc.next();
-                ddl.setPeriod(period);
-                Date dateDdl = formatter.parse(period);
-                ddl.setDate(dateDdl);
-                ddl.taskDeadline();
+                Deadline ddl = new Deadline(description,period);
+                String[] parts = period.split("/");
+                if(parts.length==3){
+                    Date dateDdl = formatter.parse(period);
+                    ddl.period = dateDdl.toString();
+                }
                 listCmd.add(ddl);
+                listCmd.get(listCmd.size()-1).period=ddl.period;
                 System.out.println("    Got it. I've added this task: ");
                 System.out.println("    [D][\u2718]"+ ddl.description+" (by: "+ddl.period+")");
                 System.out.println("    Now you have "+ listCmd.size()+" tasks in the list.");
                 System.out.println("    --------------------------------------------------------");
             }else if(type.equals("event")){
-                System.out.println("    --------------------------------------------------------");
-                String evtCmd = scCmd.nextLine();
-                Scanner evtSc = new Scanner(evtCmd).useDelimiter("\\s*/at\\s*");
-                Task event = new Task(evtSc.next());
-                String period = evtSc.next();
-                event.setPeriod(period);
-                Date dateEvt = formatter.parse(period);
-                event.setDate(dateEvt);
-                event.taskEvent();
+                String ddlCmd = scCmd.nextLine();
+                Scanner ddlSc = new Scanner(ddlCmd).useDelimiter("\\s*/at\\s*");
+                String description = ddlSc.next();
+                String period = ddlSc.next();
+                Event event = new Event(description,period);
+                String[] parts = period.split("/");
+                if(parts.length==3) {
+                    Date dateEvent = formatter.parse(period);
+                    event.period = dateEvent.toString();
+                }
+       //         event.setDate(dateEvent);
                 listCmd.add(event);
+                listCmd.get(listCmd.size()-1).period=event.period;
                 System.out.println("    Got it. I've added this task: ");
                 System.out.println("    [E][\u2718]"+ event.description +" (at: "+event.period+")");
                 System.out.println("    Now you have "+ listCmd.size()+" tasks in the list.");
@@ -146,9 +144,9 @@ public class Duke {
             if(listCmd.get(i).type.equals("T")){
                 out.write("T|"+ done +"|"+ listCmd.get(i).description+"\n");
             }else if(listCmd.get(i).type.equals("D")){
-                out.write("D|"+ done +"|"+ listCmd.get(i).description+ "|"+listCmd.get(i).period+"\n");
+                out.write("D|"+ done +"|"+ listCmd.get(i).description+ "|"+listCmd.get(i).getPeriod()+"\n");
             }else{
-                out.write("E|"+ done +"|"+ listCmd.get(i).description+ "|"+listCmd.get(i).period+"\n");
+                out.write("E|"+ done +"|"+ listCmd.get(i).description+ "|"+listCmd.get(i).getPeriod()+"\n");
             }
         }
         out.flush();

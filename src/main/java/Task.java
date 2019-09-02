@@ -24,14 +24,11 @@ public class Task {
     protected boolean isDone;
     protected String type;
     protected String period;
-    protected Date date;
+
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.type = "T";
-        this.period=null;
-        this.date=null;
     }
 
     public String getStatusIcon() {
@@ -40,17 +37,9 @@ public class Task {
     public void markAsDone(){
         this.isDone = true;
     }
-    public void taskDeadline(){
-        this.type="D";
-    }
-    public void taskEvent(){
-        this.type="E";
-    }
-    public void setPeriod(String timeString){
-        this.period=timeString;
-    }
-    public void setDate(Date newdate){
-        this.date = newdate;
-    }
+    public String getPeriod(){return this.period;}
 
+    public String toString() {
+        return this.description;
+    }
 }
