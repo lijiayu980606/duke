@@ -34,18 +34,20 @@ public class Duke {
             String type = lineParts[0];
             String done = lineParts[1];
             String description = lineParts[2];
-            String time = lineParts[3];
+
             if (type.equals("T")) {
                 Todo cmd = new Todo(description);
                 cmd.isDone = (done.equals("1")) ? true : false;
                 listCmd.add(cmd);
             } else if (type.equals("D")) {
+                String time = lineParts[3];
                 Deadline cmd = new Deadline(description,time);
                 cmd.isDone = (done.equals("1")) ? true : false;
                 //cmd.setPeriod(lineParts[3]);cmdl.setDate(formatter.parse(lineParts[3]));
 
                 listCmd.add(cmd);
             } else {
+                String time = lineParts[3];
                 Event cmd = new Event(description,time);
                 cmd.isDone = (done.equals("1")) ? true : false;
 //                cmd.setDate(formatter.parse(lineParts[3]));
@@ -69,7 +71,7 @@ public class Duke {
                 for(int i = 0; i < sizeCommand; i++){
                     int num=i+1;
                     Task cmd = listCmd.get(i);
-                    System.out.println(num+". "+ cmd);
+                    System.out.println("    "+num+". "+ cmd);
                 }
                 System.out.println("    --------------------------------------------------------");
             }else if (type.equals("done")) {
@@ -78,6 +80,23 @@ public class Duke {
                 int i =Integer.parseInt(scCmd.next())-1;
                 listCmd.get(i).markAsDone();
                 System.out.println("    Nice! I've marked this task as done:\n"+"    [" + listCmd.get(i).getStatusIcon()+"] "+listCmd.get(i).description);
+                System.out.println("    --------------------------------------------------------");
+            }else if(type.equals("find")){
+                List<Task> results = new ArrayList<>();
+                String search = scCmd.next();
+                for(int i = 0; i < listCmd.size(); i++){
+                    if(listCmd.get(i).description.contains(search)){
+                        Task cmd = listCmd.get(i);
+                        results.add(cmd);
+                    }
+                }
+                System.out.println("    --------------------------------------------------------");
+                System.out.println("    Here are the matching tasks in your list:");
+                for(int i = 0; i < results.size(); i++){
+                    int num=i+1;
+                    Task cmd = results.get(i);
+                    System.out.println("    "+num+". "+ cmd);
+                }
                 System.out.println("    --------------------------------------------------------");
             }else if(type.equals("todo")) {
                 System.out.println("    --------------------------------------------------------");
