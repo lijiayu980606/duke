@@ -1,7 +1,7 @@
 import java.util.Date;
 
 public class Event extends Task{
-    protected String period;
+//    protected String period;
 //    protected Date date;
 
     public Event(String description, String by){

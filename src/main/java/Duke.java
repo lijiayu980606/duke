@@ -34,18 +34,20 @@ public class Duke {
             String type = lineParts[0];
             String done = lineParts[1];
             String description = lineParts[2];
-            String time = lineParts[3];
+
             if (type.equals("T")) {
                 Todo cmd = new Todo(description);
                 cmd.isDone = (done.equals("1")) ? true : false;
                 listCmd.add(cmd);
             } else if (type.equals("D")) {
+                String time = lineParts[3];
                 Deadline cmd = new Deadline(description,time);
                 cmd.isDone = (done.equals("1")) ? true : false;
                 //cmd.setPeriod(lineParts[3]);cmdl.setDate(formatter.parse(lineParts[3]));
 
                 listCmd.add(cmd);
             } else {
+                String time = lineParts[3];
                 Event cmd = new Event(description,time);
                 cmd.isDone = (done.equals("1")) ? true : false;
 //                cmd.setDate(formatter.parse(lineParts[3]));
@@ -117,7 +119,6 @@ public class Duke {
                     ddl.period = dateDdl.toString();
                 }
                 listCmd.add(ddl);
-                listCmd.get(listCmd.size()-1).period=ddl.period;
                 System.out.println("    Got it. I've added this task: ");
                 System.out.println("    [D][\u2718]"+ ddl.description+" (by: "+ddl.period+")");
                 System.out.println("    Now you have "+ listCmd.size()+" tasks in the list.");
@@ -135,7 +136,7 @@ public class Duke {
                 }
        //         event.setDate(dateEvent);
                 listCmd.add(event);
-                listCmd.get(listCmd.size()-1).period=event.period;
+                System.out.println("    --------------------------------------------------------");
                 System.out.println("    Got it. I've added this task: ");
                 System.out.println("    [E][\u2718]"+ event.description +" (at: "+event.period+")");
                 System.out.println("    Now you have "+ listCmd.size()+" tasks in the list.");

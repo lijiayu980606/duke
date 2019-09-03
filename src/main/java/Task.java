@@ -39,6 +39,10 @@ public class Task {
     }
     public String getPeriod(){return this.period;}
 
+    public void setPeriod(String period) {
+        this.period = period;
+    }
+
     public String toString() {
         return this.description;
     }

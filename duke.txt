@@ -1,5 +1,4 @@
-E|0| buacwabl|null
-D|0| fbhkaew|null
-D|0| ddl|null
-E|0| buekaeq|null
-D|0| bdhaskvf|null
+T|0| read CG2027 notes
+D|0| CS2113T|Thur2359
+E|0| idp fusion workshop|null
+D|0| try whatever blah|dhakjfywfas
