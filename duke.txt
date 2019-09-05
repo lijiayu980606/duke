@@ -1,4 +1,6 @@
-T|0| read CG2027 notes
-D|0| CS2113T|Thur2359
-E|0| idp fusion workshop|null
-D|0| try whatever blah|dhakjfywfas
+D|1| blah| blah
+T|0| blah
+E|0| cs2113T| ndsuavuh
+T|0| blah
+T|0| adsjkjaf
+E|0|bjfskhd|fbhkbrhkej
