@@ -12,7 +12,8 @@ repositories {
 
 application {
     // Change this to your main class.
-    mainClassName = "seedu.duke.Duke"
+    mainClassName = "Duke"
+
 }
 
 dependencies {
@@ -21,4 +22,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+run{
+    standardInput = System.in
 }

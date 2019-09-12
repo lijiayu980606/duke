@@ -1,6 +1,1 @@
-D|1| blah| blah
-T|0| blah
-E|0| cs2113T| ndsuavuh
-T|0| blah
-T|0| adsjkjaf
-E|0|bjfskhd|fbhkbrhkej
+T|0| JUT

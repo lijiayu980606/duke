@@ -7,9 +7,12 @@ public class TodoCommand extends Command {
     private String cmd;
     private String dummy;
     public TodoCommand(String str){
-        Scanner sc = new Scanner(str);
-        this.dummy = sc.next();
-        this.cmd = sc.nextLine();
+//        Scanner sc = new Scanner(str);
+//        this.dummy = sc.next();
+//        this.cmd = sc.nextLine();
+        //String arr[];
+        String description = str.split(" ", 2)[1].trim();
+        this.cmd = description;
     }
     @Override
     /**
@@ -24,5 +27,9 @@ public class TodoCommand extends Command {
         ui.todo(td);
         storage.writeInto();
         ui.showTotal(task);
+    }
+
+    public String getCmd(){
+         return this.cmd;
     }
 }
