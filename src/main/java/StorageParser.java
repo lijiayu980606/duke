@@ -1,5 +1,14 @@
+/**
+ * This class defines a few basic operations that we would be using while reading from or writing into a text file.
+ */
 public class StorageParser {
     //read file
+
+    /**
+     * this function read from the txt file and transfer the lines into task objects
+     * @param nextLine pass in the command line and turns it into a task object
+     * @return Task which is storable in a TaskList type of list
+     */
     public static Task takeTaskFromFile(String nextLine){
         String[] lineParts = nextLine.split("\\|");
         String type = lineParts[0];
@@ -26,6 +35,12 @@ public class StorageParser {
             return  cmd;
         }
     }
+
+    /**
+     * this function transfer task objects into strings and write them into the txt file
+     * @param cmd a Task object
+     * @return A string that can be stored in a txt file
+     */
     //write file
     public static String writeCmdAsString(Task cmd){
         String done = cmd.isDone?"1":"0";

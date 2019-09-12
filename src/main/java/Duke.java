@@ -14,6 +14,7 @@ public class Duke {
         ui = new Ui();
         storage = new Storage(filePath,ui);
         File f = new File(filePath);
+        //read from a existing txt file
         try {
             if(f.exists()) {
                 tasks = new TaskList();
@@ -34,6 +35,7 @@ public class Duke {
         ui.greeting();
         ui.showLine();
         boolean isExit = false;
+        //read in user input
         while (!isExit) {
             try {
                 String fullCommand = ui.read();

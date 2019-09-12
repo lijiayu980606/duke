@@ -3,7 +3,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
-
+/**
+ * The child class of Command class which store a deadline object in the task list when input is [deadline]+task+[/by]+date
+ */
 public class DeadlineCommand extends Command {
     private String cmd;
     private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
@@ -11,6 +13,12 @@ public class DeadlineCommand extends Command {
         this.cmd = str;
     }
     @Override
+    /**
+     * add a task into the users' list
+     * @param task the current list of the users' task objects
+     * @param ui the user interface which defines the output based on different input
+     * @param storage the object that handles actions like reading from and writing into the external file
+     */
     public void execute(TaskList task, Ui ui, Storage storage) throws ParseException, IOException, DukeException {
         //Scanner ddlSc = new Scanner(cmd).useDelimiter("\\s*/by\\s*");
         //String description = ddlSc.next();

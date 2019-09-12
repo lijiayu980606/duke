@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * This class stores and read data from a txt file
+ */
 public class Storage{
     private String file;
     private List<Task> listCmd;
@@ -18,6 +21,11 @@ public class Storage{
         this.ui = ui;
         readFrom();
     }
+
+    /**
+     * update listCmd to current list of tasks before storing it
+     * @param tasks
+     */
     public void update(TaskList tasks){
         if(!tasks.isEmpty()) {
             listCmd.clear();
@@ -26,6 +34,12 @@ public class Storage{
             }
         }
     }
+
+    /**
+     * read from an existing txt file
+     * @return tsk which is a TaskList with all stored command being written into it
+     * @throws FileNotFoundException
+     */
     public List<Task> readFrom() throws FileNotFoundException {
         List<Task> tsk = new ArrayList<>();
             File f = new File(file);
@@ -37,6 +51,11 @@ public class Storage{
         listCmd = tsk;
         return tsk;
     }
+
+    /**
+     *write into an existing .txt file
+     * @throws IOException
+     */
     public void writeInto() throws IOException {
         Path file = Paths.get("duke.txt");
         FileWriter out = new FileWriter(String.valueOf(file),false);
@@ -48,6 +67,10 @@ public class Storage{
         out.close();
     }
 
+    /**
+     * expose listCmd for other classes to get access to it
+     * @return
+     */
     public List<Task> get (){
         return this.listCmd;
     }

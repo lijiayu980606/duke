@@ -1,3 +1,6 @@
+/**
+ * Defined some commonly used warning sentences
+ */
 public class Message {
     public static final String UNKNOWN = "I'm sorry, but I don't know what that means :-(";
     public static final String EMPTY = "The command cannot be empty. :-(";

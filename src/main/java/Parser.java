@@ -1,10 +1,18 @@
 import java.util.Scanner;
 
+/**
+ * This class transfer input into its corresponding command datatype
+ */
 public class Parser {
     protected String cmd;
     protected String type;
 
-
+    /**
+     * return corresponding command based on the type of the input
+     * @param line user input without the type word
+     * @return Command return a command data type
+     * @throws DukeException
+     */
     public static Command parse(String line) throws DukeException {
         String type =type(line);
         String cmd;
@@ -43,6 +51,12 @@ public class Parser {
                 throw new DukeException(Message.UNKNOWN);
         }
     }
+
+    /**
+     * get the type string of the input command
+     * @param ipt user input
+     * @return String that represents type of the command
+     */
     private static String type(String ipt) {
         return ipt.strip().split(" ")[0];
     }
